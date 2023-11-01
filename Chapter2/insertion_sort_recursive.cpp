@@ -8,29 +8,34 @@
 
 using namespace std;
 
-void print_vector(vector<int> &vec)
+void print_vector( const vector<int> &vec )
 {
-    for(int i : vec){
+    for(int i : vec)
+    {
         cout << i << " ";
     }
+
     cout << endl;
     return;
 }
 
-void read_vector(vector<int> &vec)
+void read_vector( vector<int> &vec )
 {
     int num = 0;
 
-    while(cin >> num){
+    while(cin >> num)
+    {
         vec.push_back(num);
     }
-    if(cin.eof()){
+
+    if(cin.eof())
+    {
         cin.clear();
     }
     return;
 }
 
-void insertion_sort(vector<int> &vec, int size)
+void insertion_sort( vector<int> &vec, int size )
 {
     if ( size <= 1 )
         return;
@@ -38,6 +43,7 @@ void insertion_sort(vector<int> &vec, int size)
     insertion_sort(vec, size - 1);
     int key = vec[size - 1];
     int index = size - 2;
+    
     while (index >= 0 && vec[index] > key)
     {
         vec[index + 1] = vec[index];
@@ -47,8 +53,9 @@ void insertion_sort(vector<int> &vec, int size)
     return;
 }
 
-int main(void){
-    try{
+int main( void ){
+    try
+    {
         vector<int> values;
 
         cout << "This program implements insertion sort in ascending order.\n"
@@ -64,10 +71,17 @@ int main(void){
         cout << "The sorted array in ascending order: ";
         print_vector(values);
         cout << endl;
-    } catch ( exception &e ) {
-        cout << "Error: " << e.what() << endl;
-    } catch (...) {
-        cout << "Unkown error encountered!!!";
+
+        return 0;
     }
-    return 0;
+    catch ( exception &e )
+    {
+        cerr << "Error: " << e.what() << endl;
+        return -1;
+    }
+    catch (...)
+    {
+        cerr << "Unkown error encountered!!!";
+        return -1;
+    }
 }
