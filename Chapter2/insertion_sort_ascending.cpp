@@ -13,10 +13,13 @@ using namespace std;
  * 
  * return: void.
 */
-void print_vector(vector<int> &vec){
-    for(int i : vec){
+void print_vector( const vector<int> &vec )
+{
+    for(int i : vec)
+    {
         cout << i << " ";
     }
+
     cout << endl;
     return;
 }
@@ -27,13 +30,17 @@ void print_vector(vector<int> &vec){
  * 
  * return: void.
 */
-void read_vector(vector<int> &vec){
+void read_vector( vector<int> &vec )
+{
     int num = 0;
 
-    while(cin >> num){
+    while(cin >> num)
+    {
         vec.push_back(num);
     }
-    if(cin.eof()){
+
+    if(cin.eof())
+    {
         cin.clear();
     }
     return;
@@ -46,13 +53,16 @@ void read_vector(vector<int> &vec){
  * 
  * return: void.
 */
-void insertion_sort_ascending(vector<int> &vec){
+void insertion_sort_ascending( vector<int> &vec )
+{
     int key = 0, j = 0;
 
-    for(int i = 1; i < vec.size(); i++){
+    for(int i = 1; i < vec.size(); i++)
+    {
         key = vec[i];
         j = i - 1;
-        while(j >= 0 and vec[j] > key){
+        while(j >= 0 and vec[j] > key)
+        {
             vec[j+1] = vec[j];
             j--;
         }
@@ -69,8 +79,9 @@ void insertion_sort_ascending(vector<int> &vec){
  * 
  * return: 0 on success
 */
-int main(void){
-    try{
+int main( void ){
+    try
+    {
         vector<int> values;
 
         cout << "This program implements insertion sort in ascending order.\n"
@@ -88,11 +99,15 @@ int main(void){
         cout << endl;
 
         return 0;
-    } catch ( exception &e ) {
-        cout << "Error: " << e.what() << endl;
+    } 
+    catch ( const exception &e )
+    {
+        cerr << "Error: " << e.what() << endl;
         return -1;
-    } catch (...) {
-        cout << "Unkown error encountered!!!";
+    } 
+    catch (...)
+    {
+        cerr << "Unkown error encountered!!!";
         return -1;
     }
 }
