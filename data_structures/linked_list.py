@@ -13,95 +13,117 @@ class SinglyNode:
         """
         self.value = value
         self.next: SinglyNode | None = None
+    
+    def __repr__(self) -> str:
+        """Helpful representation."""
+        return self.value
 
 class SinglyLinkedList:
     """Representation of a singly linked list"""
-    def __init__(self, head = None):
+    def __init__(self, nodes = None):
         """
         Args:
-            head: the Node of the first element in the list, initialized to zero.
+            nodes: an iterable with the elements to create the nodes of the list with.
         """
-        self.head = head
+        self.head = None
+
+        if nodes is not None:
+            node = SinglyNode(nodes.pop(0))
+            self.head = node
+            for element in nodes:
+                node.next = SinglyNode(element)
+                node = node.next
+
     
-    def insert_beginning(self, value):
+    def __repr__(self) -> str:
+        """Helpful representation."""
+        node = self.head
+        nodes = []
+
+        while node is not None:
+            nodes.append(node.value)
+            node = node.next
+        nodes.append("None")
+
+        return " -> ".join(nodes)
+    
+    def __iter__(self):
+        """Traversing the list."""
+        node = self.head
+        while node is not None:
+            yield node
+            node = node.next
+    
+    def insert_beginning(self, node: SinglyNode):
         """Insert a new Node at the beginning of the list.
         
         Args:
-            value: the value to be stored in the new Node.
+            node: the new Node.
         """
         # create a new Node, assign the current head Node to be next on the new Node. set the head to the new Node
-        new_head = SinglyNode(value)
-        new_head.next = self.head
-        self.head = new_head
+        node.next = self.head
+        self.head = node
     
-    def insert_middle(self, previous: SinglyNode, value):
+    def insert_middle(self, previous: SinglyNode, node: SinglyNode):
         """Insert a new node in the middle of the list after the provided previous Node.
         
         Args:
             previous: the Node to insert the new Node after.
-            value: the value to be stored in the new Node.
+            node: the new Node.
         """
+        if self.head is None:
+            raise Exception("The linked list is empty!!!")
+
         assert isinstance(previous, SinglyNode)
+        assert isinstance(node, SinglyNode)
 
         # create a new Node, assign new Node's next to the previous's next, and assign previous's next to new Node
-        new_node = SinglyNode(value)
-        new_node.next = previous.next
-        previous.next = new_node
+        node.next = previous.next
+        previous.next = node
     
-    def insert_end(self, value):
+    def insert_end(self, node: SinglyNode):
         """Insert a new Node to the end of the list.
         
         Args:
-            value: the value to be stored in the Node.
+            node: the value to be stored in the Node.
         """
-        new_node = SinglyNode(value)
-
         # if the list is empty, add the Node to be the head
-        if self.head == None:
-            self.head = new_node
+        if self.head is None:
+            self.head = node
         else:
             # the list is not empty
-            last = self.head
-            while last.next:
-                # iterate until the last node which points to None
-                last = last.next
-            
-            last.next = new_node
+            for current_node in self:
+                pass
+
+            current_node.next = node
 
     def delete_head(self):
         """Delete the first Node in the list."""
-        if self.head == None:
-            return
-
-        old_head = self.head
-        self.head = old_head.next
-        del old_head
+        if self.head is None:
+            raise Exception("The list is empty!!!")
+        self.head = self.head.next
     
     def delete_tail(self):
         """Delete the last Node in the list."""
+        if self.head is None:
+            raise Exception("The list is empty!!!")
         
-        if self.head == None:
-            return
-        
-        last = self.head
-        while last.next.next:
-            # iterate through Nodes in the list and stop at the second to last Node
-            last = last.next
+        previous_node = self.head
+        for node in self:
+            if node.next is None:
+                previous_node.next = None
+            previous_node = node
 
-        # Delete the next Node which is the last and the set the current Node's next to None, making it the last Node
-        del last.next
-        last.next = None
     
-    def delete_middle(self, previous_node: SinglyNode, node_to_delete: SinglyNode):
+    def delete_middle(self, previous_node: SinglyNode, target_node: SinglyNode):
         """Delete a node in the middle of the linked list.
         
         Args:
-            node_to_delete: the Node to be deleted.
+            target_node: the Node to be deleted.
             previous_node: the node right before the Node to be deleted.
         """
-        if self.head == None:
-            return
+        if self.head is None:
+            raise Exception("The list is empty!!!")
         
-        previous_node.next = node_to_delete.next
-        del node_to_delete
+        previous_node.next = target_node.next
         
