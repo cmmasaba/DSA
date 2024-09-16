@@ -1,16 +1,17 @@
 """Algorithm to find permuations of a given string.
-The runtime of the algorithm is O(n^2 * n!)
+The runtime of the algorithm is O(n!)
 """
 
-def find_permutation(string: str):
-    permutation(string, prefix="")
-
-def permutation(string: str, prefix: str):
-    if len(string) == 0:
-        print(prefix)
+def heap_permutation(array: list, length: int):
+    if length <= 1:
+        yield "".join(array)
     else:
-        for i in range(0, len(string)):
-            rem = string[0:i] + string[i+1:]
-            permutation(rem, prefix + string[i])
+        yield from heap_permutation(array, length - 1)
 
-find_permutation('cmk')
+        for i in range(length - 1):
+            if length%2 == 0:
+                array[i], array[length - 1] = array[length - 1], array[i]
+            else:
+                array[0], array[length - 1] = array[length - 1], array[0]
+
+            yield from heap_permutation(array, length - 1)
