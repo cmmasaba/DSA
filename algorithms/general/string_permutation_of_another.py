@@ -1,5 +1,7 @@
 from string_permutation import heap_permutation
 
+
+# Very naive approach
 def check_two_strings(string1: str, string2) -> bool:
     """Check if string1 is a permutation of string2.
 
@@ -19,6 +21,32 @@ def check_two_strings(string1: str, string2) -> bool:
         return True
     else:
         return False
-    
 
-print(f"Is ins a permutation of Collins? {check_two_strings("ins", "Collins")}")
+# An efficient approach
+
+def permuted(string1: str, string2: str):
+    """Check if one string is a permutation of the other string.
+
+    Runtime of O(N).
+    Assumptions: ASCII character set, case sensitive, whitespace is significant.
+    Args:
+        string1: the string to check
+        string2: the original string
+    Returns:
+        True if string1 is permutation of string2, otherwise False.
+    """
+
+    if len(string1) != len(string2):
+        return False
+    
+    letters = [0 for i in range(128)]
+
+    for char in string1:
+        letters[ord(char)] += 1
+    
+    for char in string2:
+        letters[ord(char)] -= 1
+        if letters[ord(char)] < 0:
+            return False
+    
+    return True
