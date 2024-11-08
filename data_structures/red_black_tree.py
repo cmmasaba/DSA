@@ -32,6 +32,61 @@ class RB_BST:
     def __init__(self, root: Node = None) -> None:
         self.root = root
         self.nil = Node(color=NodeColor.BLACK)
+    
+    @property
+    def minimum(self):
+        """Find the minimum value in the tree.
+        Returns:
+            the minimum node.
+        """
+        temp = self.root
+        while temp.left:
+            temp = temp.left
+        return temp
+
+    @property
+    def maximum(self):
+        """Find the maximum value in the tree.
+        
+        Returns:
+            the maximum node.
+        """
+        temp = self.root
+        while temp.right:
+            temp = temp.right
+        return temp
+
+    def successor(self, node: Node):
+        """Find the immediate largest value after node's value.
+        
+        Args:
+            node: the node to find the successor of.
+            Returns:
+            the successor node.
+        """
+        if node.right:
+            return self.minimum(node.right)
+        else:
+            parent = node.parent
+            while parent and node == parent.right:
+                parent, node = node, parent.parent
+            return parent
+
+    def predecessor(self, node: Node):
+        """Find the immediate smallest value after node's value.
+        
+        Args:
+            node: the node to find the predecessor of.
+        Returns:
+            the predecessor node.
+        """
+        if node.left:
+            return self.maximum(node.left)
+        else:
+            parent = node.parent
+            while parent and node == parent.left:
+                parent, node = node, parent.parent
+            return parent
 
     def left_rotate(self, node: Node):
         """Runs in O(1) time and changes the pointer structure of the
@@ -184,58 +239,4 @@ class RB_BST:
     def transplant(self, node_1: Node, node_2: Node):
         pass
 
-    @property
-    def minimum(self):
-        """Find the minimum value in the tree.
-        Returns:
-            the minimum node.
-        """
-        temp = self.root
-        while temp.left:
-            temp = temp.left
-        return temp
-
-    @property
-    def maximum(self):
-        """Find the maximum value in the tree.
-        
-        Returns:
-            the maximum node.
-        """
-        temp = self.root
-        while temp.right:
-            temp = temp.right
-        return temp
-
-    def successor(self, node: Node):
-        """Find the immediate largest value after node's value.
-        
-        Args:
-            node: the node to find the successor of.
-            Returns:
-            the successor node.
-        """
-        if node.right:
-            return self.minimum(node.right)
-        else:
-            parent = node.parent
-            while parent and node == parent.right:
-                parent, node = node, parent.parent
-            return parent
-
-    def predecessor(self, node: Node):
-        """Find the immediate smallest value after node's value.
-        
-        Args:
-            node: the node to find the predecessor of.
-        Returns:
-            the predecessor node.
-        """
-        if node.left:
-            return self.maximum(node.left)
-        else:
-            parent = node.parent
-            while parent and node == parent.left:
-                parent, node = node, parent.parent
-            return parent
 
