@@ -87,6 +87,21 @@ class RB_BST:
             while parent and node == parent.left:
                 parent, node = node, parent.parent
             return parent
+    
+    def transplant(self, node_1: Node, node_2: Node):
+        """Replace the subtree rooted at node 1 with the subtree rooted at node 2.
+        
+        Args:
+            node_1: a node in the tree.
+            node_2: a node in the tree.
+        """
+        if node_1.parent is self.nil:
+            self.root = node_2
+        elif node_1 is node_1.parent.left:
+            node_1.parent.left = node_2
+        else:
+            node_1.parent.right = node_2
+        node_2.parent = node_1.parent
 
     def left_rotate(self, node: Node):
         """Runs in O(1) time and changes the pointer structure of the
@@ -236,7 +251,5 @@ class RB_BST:
     def delete_fixup(self, node: Node):
         pass
 
-    def transplant(self, node_1: Node, node_2: Node):
-        pass
 
 
