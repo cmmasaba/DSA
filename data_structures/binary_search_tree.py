@@ -58,9 +58,8 @@ class BST:
             return self.minimum(node.right)
         else:
             parent = node.parent
-            x = node
-            while parent and x == parent.right:
-                parent, parent = x, parent.parent
+            while parent and node == parent.right:
+                parent, node = node, parent.parent
             return parent
 
     def predecessor(self, node: Node):
@@ -68,9 +67,8 @@ class BST:
             return self.maximum(node.left)
         else:
             parent = node.parent
-            x = node
-            while parent and x == parent.left:
-                parent, x = parent, parent.parent
+            while parent and node == parent.left:
+                parent, node = parent, parent.parent
             return parent
 
     def insert(self, node: Node):
