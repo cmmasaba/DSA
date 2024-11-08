@@ -186,6 +186,10 @@ class RB_BST:
 
     @property
     def minimum(self):
+        """Find the minimum value in the tree.
+        Returns:
+            the minimum node.
+        """
         temp = self.root
         while temp.left:
             temp = temp.left
@@ -193,12 +197,24 @@ class RB_BST:
 
     @property
     def maximum(self):
+        """Find the maximum value in the tree.
+        
+        Returns:
+            the maximum node.
+        """
         temp = self.root
         while temp.right:
             temp = temp.right
         return temp
 
     def successor(self, node: Node):
+        """Find the immediate largest value after node's value.
+        
+        Args:
+            node: the node to find the successor of.
+            Returns:
+            the successor node.
+        """
         if node.right:
             return self.minimum(node.right)
         else:
@@ -208,6 +224,13 @@ class RB_BST:
             return parent
 
     def predecessor(self, node: Node):
+        """Find the immediate smallest value after node's value.
+        
+        Args:
+            node: the node to find the predecessor of.
+        Returns:
+            the predecessor node.
+        """
         if node.left:
             return self.maximum(node.left)
         else:
