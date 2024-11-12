@@ -119,29 +119,21 @@ class RB_BST:
             node: the node to perform a left rotation on.
         """
         right_child: Node = node.right
-        # turn right child's left subtree into node's right subtree
-        node.right = right_child.left
+        node.right = right_child.left           # turn right child's left subtree into node's right subtree
 
-        # if the left subtree isn't empty, make node the parent of
-        # the subtree's root.
-        if right_child.left is not self.nil:           
-            right_child.left.parent = node
-        # node's parent becomes right child's parent
-        right_child.parent = node.parent
-        # If node was the root, the right child becomes the root
-        if node.parent is self.nil:
-            self.root = right_child
-        # If node is a left child make right child the left child
-        # of the parent
-        elif node is node.parent.left:
-            node.parent.left = right_child
-        # If node is a right child make right child the right child
-        # of the parent
-        else:
-            node.parent.right = right_child
         
-        # Make node right child's left child.
-        right_child.left = node
+        if right_child.left is not self.nil:    # if the left subtree isn't empty, make node the parent of the subtree's root.        
+            right_child.left.parent = node
+
+        right_child.parent = node.parent        # node's parent becomes right child's parent
+        if node.parent is self.nil:             # If node was the root, the right child becomes the root
+            self.root = right_child
+        elif node is node.parent.left:          # If node is a left child make right child the left child of the parent
+            node.parent.left = right_child
+        else:                                   # If node is a right child make right child the right child of the parent
+            node.parent.right = right_child
+
+        right_child.left = node                 # Make node right child's left child.
         node.parent = right_child
 
 
@@ -153,29 +145,22 @@ class RB_BST:
             node: the node to perform a right rotation on.
         """
         left_child: Node = node.left
-        # turn left child's right subtree into node's left subtree
-        node.left = left_child.right
+        node.left = left_child.right            # turn left child's right subtree into node's left subtree
 
-        # if the right subtree isn't empty, make node the parent of
-        # the subtree's root.
-        if left_child.right is not self.nil:           
+        if left_child.right is not self.nil:    # if the right subtree isn't empty, make node the parent of the subtree's root.       
             left_child.right.parent = node
-        # node's parent becomes left child's parent
-        left_child.parent = node.parent
-        # If node was the root, the left child becomes the root
-        if node.parent is self.nil:
+
+        left_child.parent = node.parent         # node's parent becomes left child's parent
+
+        if node.parent is self.nil:             # If node was the root, the left child becomes the root
             self.root = left_child
-        # If node is a right child make left child the right child
-        # of the parent
-        elif node is node.parent.right:
+        elif node is node.parent.right:         # If node is a right child make left child the right child of the parent
             node.parent.right = left_child
-        # If node is a left child make left child the left child
-        # of the parent
-        else:
+        else:                                   # If node is a left child make left child the left child of the parent
             node.parent.left = left_child
-        
-        # Make node right child's left child.
-        left_child.right = node
+
+
+        left_child.right = node                 # Make node right child's left child.
         node.parent = left_child
     
     def insert(self, node: Node):
@@ -188,27 +173,23 @@ class RB_BST:
             node: the node being inserted into the tree."""
         temp_1, temp_2 = self.root, self.nil
 
-        # Descend until reaching the sentinel.
-        while temp_1 is not self.nil:
+        while temp_1 is not self.nil:                                           # Descend until reaching the sentinel.
             if node.key < temp_1.key:
                 temp_2, temp_1 = temp_1, temp_1.left
             else:
                 temp_2, temp_1 = temp_1, temp_1.right
         node.parent = temp_2
 
-        # The tree was empty
-        if temp_2 is self.nil:
+        if temp_2 is self.nil:                                                  # The tree was empty
             self.root = node
         elif node.key < temp_2.key:
             temp_2.left = node
         else:
             temp_2.right = node
 
-        # Set the node's children to sentinel and color it red.
-        node.left, node.right, node.color = self.nil, self.nil, NodeColor.RED
+        node.left, node.right, node.color = self.nil, self.nil, NodeColor.RED   # Set the node's children to sentinel and color it red.
 
-        # Fix any red-black tree violations.
-        self.insert_fixup(node)
+        self.insert_fixup(node)                                                 # Fix any red-black tree violations.
     
     def insert_fixup(self, node: Node):
         """Fix any violations of the red-black tree properties
