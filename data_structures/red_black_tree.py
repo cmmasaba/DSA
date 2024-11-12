@@ -11,7 +11,6 @@ Black height: the number of black nodes on any simple path from, but not includi
 """
 
 from enum import Enum
-from copy import deepcopy
 
 class NodeColor(Enum):
     """Representation for the possible colors of the nodes in a red-black tree."""
