@@ -30,14 +30,14 @@ class RB_BST:
     """Implemetation of the methods of a red-black tree."""
     def __init__(self, root: Node = None) -> None:
         self.root = root
-        self.nil = Node(color=NodeColor.BLACK)
+        self.nil = Node(color=NodeColor.BLACK)  # Sentinel node colored black
     
     def minimum(self, node: Node = None):
         """Find the minimum value in the tree.
         Returns:
             the minimum node.
         """
-        if node is not None:
+        if node is not self.nil:
             temp = node
         else:
             temp = self.root
@@ -52,7 +52,7 @@ class RB_BST:
         Returns:
             the maximum node.
         """
-        if node is not None:
+        if node is not self.nil:
             temp = node
         else:
             temp = self.root
