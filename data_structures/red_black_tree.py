@@ -219,12 +219,11 @@ class RB_BST:
             node: the node that was inserted.
         """
         while node.parent.color == NodeColor.RED:
-            # node's parent is a left child.
-            if node.parent is node.parent.parent.left:
-                # temp is node's uncle
-                temp: Node  = node.parent.parent.right
-                # node's parent and uncle both red
-                if temp.color == NodeColor.RED:
+            if node.parent is node.parent.parent.left:      # node's parent is a left child.
+
+                temp: Node  = node.parent.parent.right      # temp is node's uncle
+
+                if temp.color == NodeColor.RED:             # node's parent and uncle both red
                     node.parent.color = NodeColor.BLACK
                     temp.color = NodeColor.BLACK
                     node.parent.parent.color = NodeColor.RED
@@ -236,8 +235,7 @@ class RB_BST:
                     node.parent.color = NodeColor.BLACK
                     node.parent.parent.color = NodeColor.RED
                     self.right_rotate(node.parent.parent)
-            # node's parent is a right child
-            else:
+            else:                                           # node's parent is a right child
                 temp = node.parent.parent.left
                 if temp.color == NodeColor.RED:
                     node.parent.color = NodeColor.BLACK
