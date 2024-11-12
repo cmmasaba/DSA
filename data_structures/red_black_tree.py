@@ -32,7 +32,6 @@ class RB_BST:
         self.root = root
         self.nil = Node(color=NodeColor.BLACK)
     
-    @property
     def minimum(self, node: Node = None):
         """Find the minimum value in the tree.
         Returns:
@@ -47,7 +46,6 @@ class RB_BST:
             temp = temp.left
         return temp
 
-    @property
     def maximum(self, node: Node = None):
         """Find the maximum value in the tree.
         
