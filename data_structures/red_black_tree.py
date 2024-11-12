@@ -34,24 +34,32 @@ class RB_BST:
         self.nil = Node(color=NodeColor.BLACK)
     
     @property
-    def minimum(self):
+    def minimum(self, node: Node = None):
         """Find the minimum value in the tree.
         Returns:
             the minimum node.
         """
-        temp = self.root
+        if node is not None:
+            temp = node
+        else:
+            temp = self.root
+
         while temp.left:
             temp = temp.left
         return temp
 
     @property
-    def maximum(self):
+    def maximum(self, node: Node = None):
         """Find the maximum value in the tree.
         
         Returns:
             the maximum node.
         """
-        temp = self.root
+        if node is not None:
+            temp = node
+        else:
+            temp = self.root
+
         while temp.right:
             temp = temp.right
         return temp
@@ -246,10 +254,91 @@ class RB_BST:
         self.root.color = NodeColor.BLACK
     
     def delete(self, node: Node):
-        pass
+        """Delete a node from the tree.
+        
+        Args:
+            node: the node to be deleted.
+        """
+        temp_1: Node = node
+        temp_1_original_color = temp_1.color
+        if node.left is self.nil:
+            temp_2 = node.right
+            self.transplant(node, node.right)               # Replace node by it's right child
+        elif node.right is self.nil:
+            temp_2 = node.left
+            self.transplant(node, node.left)                # Replace node by it's left child
+        else:
+            temp_1 = self.minimum(node.right)               # temp_1 is node's successor
+            temp_1_original_color = temp_1.color
+            temp_2 = temp_1.right
+            
+            if temp_1 is not node.right:                    # temp_1 is further down the tree
+                self.transplant(temp_1, temp_1.right)       # Replace temp_1 by its right child
+                temp_1.right = node.right
+                temp_1.right.parent = temp_1                # node's right child becomes temp_1's right child
+            else:                                           # In case temp_2 is sentinel
+                temp_2.parent = temp_1
+
+            self.transplant(node, temp_1)                   # Replace node by it's successor temp_1
+            temp_1.left = node.left                         # Give node's left child to temp_1, which had not left child.
+            temp_1.left.parent = temp_1
+            temp_1.color = node.color
+
+            if temp_1_original_color == NodeColor.BLACK:    # Correct any red-black tree properties violations
+                self.delete_fixup(temp_2)
+
 
     def delete_fixup(self, node: Node):
-        pass
-
-
+        """Restore the red-black tree properties after deletion.
+        
+        Args:
+            node: the node violating red-black tree properties.
+        """
+        while node is not self.root and node.color == NodeColor.BLACK:
+            if node is node.parent.left:        # node is a left child
+                temp = node.parent.right
+                if temp.color == NodeColor.RED:
+                    temp.color = NodeColor.BLACK
+                    node.parent.color = NodeColor.RED
+                    self.left_rotate(node.parent)
+                    temp = node.parent.right
+                
+                if temp.left.color == NodeColor.BLACK and temp.right.color == NodeColor.BLACK:
+                    temp.color = NodeColor.RED
+                    node = node.parent
+                else:
+                    if temp.right.color == NodeColor.BLACK:
+                        temp.left.color = NodeColor.BLACK
+                        temp.color = NodeColor.RED
+                        self.right_rotate(temp)
+                        temp = node.parent.right
+                    temp.color = node.parent.color
+                    node.parent.color = NodeColor.BLACK
+                    temp.right.color = NodeColor.BLACK
+                    self.left_rotate(node.parent)
+                    node = self.root
+            else:                               # node is a right child
+                temp = node.parent.left
+                if temp.color == NodeColor.RED:
+                    temp.color = NodeColor.BLACK
+                    node.parent.color = NodeColor.RED
+                    self.right_rotate(node.parent)
+                    temp = node.parent.left
+                
+                if temp.right.color == NodeColor.BLACK and temp.left.color == NodeColor.BLACK:
+                    temp.color = NodeColor.RED
+                    node = node.parent
+                else:
+                    if temp.left.color == NodeColor.BLACK:
+                        temp.right.color = NodeColor.BLACK
+                        temp.color = NodeColor.RED
+                        self.left_rotate(temp)
+                        temp = node.parent.left
+                    temp.color = node.parent.color
+                    node.parent.color = NodeColor.BLACK
+                    temp.left.color = NodeColor.BLACK
+                    self.right_rotate(node.parent)
+                    node = self.root
+        
+        node.color = NodeColor.BLACK
 
