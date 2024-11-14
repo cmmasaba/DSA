@@ -1,5 +1,6 @@
 /**
  * HackerRank problem: https://www.hackerrank.com/challenges/2d-array/problem?isFullScreen=true
+ * Runtime: O(N^2)
 */
 
 #include <stdio.h>
