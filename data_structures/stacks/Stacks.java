@@ -5,8 +5,6 @@
  * like S.top and S.size
  */
 
-import java.util.EmptyStackException;
-
 public class Stacks {
 
     private int[] stackElements = new int [20];
@@ -14,14 +12,13 @@ public class Stacks {
     private int top;
 
     public Stacks() {
-        this.size = 0;
+        this.size = 20;
         this.top = 0;
     }
 
-    public void push(int newValue) {
+    public void push(int newValue) throws StackExceptions {
         if (this.top == this.size) {
-            // Replace with error-handling logic later
-            System.out.println("Overflow");
+            throw new StackExceptions("Stack overflow!!!");
         } else {
             this.top = this.top + 1;
             this.stackElements[this.top] = newValue;
@@ -36,9 +33,9 @@ public class Stacks {
         }
     }
 
-    public int pop() throws EmptyStackException {
+    public int pop() throws StackExceptions {
         if (this.stackEmpty()) {
-            throw new EmptyStackException();
+            throw new StackExceptions("Stack Underflow!!!");
         }
         this.top = this.top - 1;
         return this.stackElements[this.top + 1];
