@@ -34,6 +34,7 @@ class DoublyLinkedList{
 
 /**
  * Search for a node with the given key in the tree.
+ * Runtime: O(n) worst case
  * @key: the key of the node to search for.
  * 
  * Return:
@@ -50,6 +51,7 @@ DoublyLinkedListNode* DoublyLinkedList::searchForNode(int key){
 
 /**
  * Insert a node anywhere in the tree.
+ * Runtime: O(1)
  * @node1: the node to insert in the tree
  * @node2: the node to insert the new node after.
  * 
@@ -67,7 +69,8 @@ void DoublyLinkedList::insertNode(DoublyLinkedListNode* node1, DoublyLinkedListN
 }
 
 /**
- * Insert a node to the fron of the list
+ * Insert a node to the fron of the list.
+ * Runtime: O(1)
  * @node: the node to insert in the list
  * 
  * Return:
@@ -85,6 +88,7 @@ void DoublyLinkedList::insertNodeFront(DoublyLinkedListNode* node) {
 
 /**
  * Delete a node from the list
+ * Runtime: O(1)
  * @node: the node to delete from the list.
  * 
  * Return:
