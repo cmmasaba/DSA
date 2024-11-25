@@ -66,6 +66,13 @@ void DoublyLinkedList::insertNode(DoublyLinkedListNode* node1, DoublyLinkedListN
     node2->next = node1;
 }
 
+/**
+ * Insert a node to the fron of the list
+ * @node: the node to insert in the list
+ * 
+ * Return:
+ *      void
+ */
 void DoublyLinkedList::insertNodeFront(DoublyLinkedListNode* node) {
     node->next = head;
     node->prev = nullptr;
@@ -76,6 +83,13 @@ void DoublyLinkedList::insertNodeFront(DoublyLinkedListNode* node) {
     head = node;
 }
 
+/**
+ * Delete a node from the list
+ * @node: the node to delete from the list.
+ * 
+ * Return:
+ *      void
+ */
 void DoublyLinkedList::deleteNode(DoublyLinkedListNode* node) {
     if (node->prev != nullptr) {
         node->prev->next = node->next;
