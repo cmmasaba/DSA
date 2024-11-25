@@ -15,7 +15,8 @@ class DoublyLinkedListNode{
 };
 
 /**
- * 
+ * Doubly Linked list implementation.
+ * Has methods for searching, insertion and deletion
  */
 class DoublyLinkedList{
     public:
@@ -30,6 +31,14 @@ class DoublyLinkedList{
         DoublyLinkedListNode *tail = nullptr;
 };
 
+
+/**
+ * Search for a node with the given key in the tree.
+ * @key: the key of the node to search for.
+ * 
+ * Return:
+ *      a pointer to the node with the given key
+ */
 DoublyLinkedListNode* DoublyLinkedList::searchForNode(int key){
     DoublyLinkedListNode *temp = head;
 
@@ -39,6 +48,14 @@ DoublyLinkedListNode* DoublyLinkedList::searchForNode(int key){
     return temp;
 }
 
+/**
+ * Insert a node anywhere in the tree.
+ * @node1: the node to insert in the tree
+ * @node2: the node to insert the new node after.
+ * 
+ * Return:
+ *      void
+ */
 void DoublyLinkedList::insertNode(DoublyLinkedListNode* node1, DoublyLinkedListNode* node2) {
     node1->next = node2->next;
     node1->prev = node2;
