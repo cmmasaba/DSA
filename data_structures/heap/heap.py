@@ -1,10 +1,11 @@
 '''
 Implementation of a heap data structure
 '''
+from typing import List
 
 class Heap:
 
-    def __init__(self, array: list, max=True):
+    def __init__(self, array: List[int], max=True):
         self.heap: list = array
         self.heap_size: int = len(self.heap)
         self.max_heap = max
