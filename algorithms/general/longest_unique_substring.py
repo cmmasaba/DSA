@@ -1,11 +1,6 @@
 import time
 
-class Solution:    
-    def allSubstrings(self, s):
-        for i in range(len(s)):
-            for j in range(i, len(s)):
-                yield s[i: j+1]
-
+class Solution:
     def lengthOfLongestSubstring(self, s):
         """
         :type s: str
